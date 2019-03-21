@@ -6,7 +6,8 @@ Welcome to the Droneflight Demo FUSEE App, which illustrates a method to calcula
 a 3D drone model with 3 different camera types.  
 The drone model was created using Blender and imported as `.fus` file. 
 
-##Controls
+## Controls
+
 The Controls are mapped to
 
 * Camera
