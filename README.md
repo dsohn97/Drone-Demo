@@ -1,6 +1,6 @@
 # CameraDemo
 
-Welcome to the Dronflight Demo FUSEE App which shows different Methods to Create a Camera Pespective in 1st and 3rd Person.
+Welcome to the Dronflight Demo FUSEE App which shows one method to Create a Camera Pespective in 1st and 3rd Person.
 
 `Droneflight.cs` contains the source code for a working FUSEE application showing 
 a 3D drone model with 3 different camera types.  
