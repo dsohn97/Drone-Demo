@@ -44,11 +44,15 @@ quaternions are 4 dimensional numbers with 1 real part w and three imaginary par
 Fusee has an already implemented quaternion class with witch you can create a quaternion from an angle input
 
 ```cs
-Orientation = 	Quaternion.FromAxisAngle(float3.UnitY, Yaw) *
-                Quaternion.FromAxisAngle(float3.UnitX, Pitch);
+public Quaternion Orientation(float Yaw, float Pitch) { 
+	Orientation = 	Quaternion.FromAxisAngle(float3.UnitY, Yaw) *
+               		Quaternion.FromAxisAngle(float3.UnitX, Pitch);
             return Orientation;
+}
 ```
+
 after creating this quaternion we can use it to transfrom our direction vector
+
 ```cs
 var forward = float3.Transform(float3.UnitZ, orientation(Yaw, Pitch));
 ```
