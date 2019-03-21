@@ -22,7 +22,7 @@ The Controls are mapped to
 				* `AD` to the sides
 				* `RF` up, down
 				* `LMB + Mouse move` rotates drone
-				
+
 		* `Follow Camera` 3rd person rotates around drone
 			* Camera movement
 				* `RMB + Mouse move` rotates camera around drone
@@ -37,6 +37,8 @@ If you Just use normal rotations for moving around in 3D space you get the Probl
 	_drone.Rotation.X(Pitch)
 ```
 you will get a Rotation around the y-axis and then most likely your x-axis rotaton will rotate your drone in an unwanted direction if your Yaw angle is close to 90° it will even result in a roll instead of a pitch.
+
+`Local Yaw + Local Pitch = Global Roll`
 
 ## Solution
 
