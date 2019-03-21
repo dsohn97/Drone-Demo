@@ -13,7 +13,7 @@ The Controls are mapped to
 * Camera
 	* `Q` change `_cameraType`
 		* `Free Camera` 1st person free flight
-			* `WASD` move in Space
+			* `WASD` move in space
 			* `LMB + mouse move` rotate view
 		
 		* `Drone Camera` 3rd person follows drones FOV
@@ -21,7 +21,8 @@ The Controls are mapped to
 				* `WS` fowards, backwards
 				* `AD` to the sides
 				* `RF` up, down
-				* `LMB + Mouse move` rotates Drone
+				* `LMB + Mouse move` rotates drone
+				
 		* `Follow Camera` 3rd person rotates around drone
 			* Camera movement
 				* `RMB + Mouse move` rotates camera around drone
