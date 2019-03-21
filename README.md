@@ -47,7 +47,7 @@ Fusee has an already implemented quaternion class with which you can create a qu
 public Quaternion Orientation(float Yaw, float Pitch) { 
 	Orientation = 	Quaternion.FromAxisAngle(float3.UnitY, Yaw) *
                		Quaternion.FromAxisAngle(float3.UnitX, Pitch);
-            return Orientation;
+    return Orientation;
 }
 ```
 
@@ -57,6 +57,11 @@ after creating this quaternion we can use it to transfrom our direction vector
 var forward = float3.Transform(float3.UnitZ, orientation(Yaw, Pitch));
 ```
 
+With the direction correctly calculated we can now crate a LookAt Matrix with it
+
+```cs
+RC.View = float4x4.LookAt(position, position + forward, float3.UnitY);
+```
 
 
 	
