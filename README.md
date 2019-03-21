@@ -4,13 +4,13 @@ Welcome to the Droneflight Demo FUSEE App, which illustrates a method to calcula
 
 ## Problem
 
-	If you Just use normal rotations for moving around in 3D space you get the Problem that your rotatons will depend on each other so if you want to rotate an object like this 
+	If you Just use normal rotations for moving around in 3D space you get the Problem that your rotatons  will depend on each other so if you want to rotate an object like this 
 
-	```csharp
+	```c#
 		_drone.transform.RotationY(Yaw)
 		_drone.transform.RotationX(Pitch)
 	```
-	
+
 `Droneflight.cs` contains the source code for a working FUSEE application showing 
 a 3D drone model with 3 different camera types.  
 The drone model was created using Blender and imported as `.fus` file. 
