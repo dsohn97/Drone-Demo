@@ -1,8 +1,8 @@
-## Droneflight_Demo
+# Droneflight_Demo
 
 Welcome to the Droneflight Demo FUSEE App, which illustrates a method to calculate movement of objects and the camera in Space using `Quaternions`. This method works for 1st and 3rd person views.
 
-# problem
+## problem
 
 `Droneflight.cs` contains the source code for a working FUSEE application showing 
 a 3D drone model with 3 different camera types.  
