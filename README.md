@@ -39,9 +39,9 @@ you will get a Rotation around the y-axis and then most likely your x-axis rotat
 
 So to avoid this we will use Quaternions for our calculations  
 
-quaternions are 4 dimensional numbers with 1 real part w and three imaginary parts i, j and k
+Quaternions are 4 dimensional numbers with 1 real part `w` and three imaginary parts `i, j and k`
 
-Fusee has an already implemented quaternion class with witch you can create a quaternion from an angle input
+Fusee has an already implemented quaternion class with which you can create a quaternion from an angle input
 
 ```cs
 public Quaternion Orientation(float Yaw, float Pitch) { 
