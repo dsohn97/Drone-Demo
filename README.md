@@ -10,7 +10,21 @@ If you Just use normal rotations for moving around in 3D space you get the Probl
 	_drone.Rotation.Y(Yaw)
 	_drone.Rotation.X(Pitch)
 ```
-you will get a Rotation around the y-axis and then most likely your x-axis rotaton will rotate your drone in a completele unwanted direction.
+you will get a Rotation around the y-axis and then most likely your x-axis rotaton will rotate your drone in an unwanted direction if your Yaw angle is close to 90° it will even result in a roll instead of a pitch.
+
+## Solution
+
+So to avoid this we will use Quaternions for our calculations  
+
+quaternions are 4 dimensional numbers with 1 real part w and three imaginary parts i, j and k
+
+Fusee has an already implemented quaternion class with witch you can create a quaternion from an angle input
+
+```cs
+Orientation = 	Quaternion.FromAxisAngle(float3.UnitY, Yaw) *
+                Quaternion.FromAxisAngle(float3.UnitX, Pitch);
+            return Orientation;
+```
 
 `Droneflight.cs` contains the source code for a working FUSEE application showing 
 a 3D drone model with 3 different camera types.  
