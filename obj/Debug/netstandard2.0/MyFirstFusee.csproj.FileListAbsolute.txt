@@ -16,3 +16,6 @@ C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\obj\Debug\netstandard2.0\MyFirstF
 C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\obj\Debug\netstandard2.0\MyFirstFusee.AssemblyInfo.cs
 C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\obj\Debug\netstandard2.0\MyFirstFusee.dll
 C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\obj\Debug\netstandard2.0\MyFirstFusee.pdb
+C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\bin\Debug\netstandard2.0\Assets\Assets.fus
+C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\bin\Debug\netstandard2.0\Assets\Plastic_001_COLOR.jpg
+C:\Users\Sohn\Documents\Fusee3D\Droneflight V2\bin\Debug\netstandard2.0\Assets\Grass_001_NORM.jpg
