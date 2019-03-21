@@ -7,9 +7,10 @@ Welcome to the Droneflight Demo FUSEE App, which illustrates a method to calcula
 If you Just use normal rotations for moving around in 3D space you get the Problem that your rotatons   will depend on each other so if you want to rotate an object like this 
 
 ```cs
-	_drone.transform.RotationY(Yaw)
-	_drone.transform.RotationX(Pitch)
+	_drone.Rotation.Y(Yaw)
+	_drone.Rotation.X(Pitch)
 ```
+you will get a Rotation around the y-axis and then most likely your x-axis rotaton will rotate your drone in a completele unwanted direction.
 
 `Droneflight.cs` contains the source code for a working FUSEE application showing 
 a 3D drone model with 3 different camera types.  
