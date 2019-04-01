@@ -208,8 +208,8 @@ namespace FuseeApp
             if (Keyboard.ADAxis != 0)
                 if (speedz <= 0.5f)
                     speedz += 0.005f;
-            float posVelX = -Keyboard.WSAxis * speedx;
-            float posVelZ = -Keyboard.ADAxis * speedz;
+            float posVelX = -Keyboard.WSAxis * speedx * DeltaTime * 10;
+            float posVelZ = -Keyboard.ADAxis * speedz * DeltaTime * 10;
             float3 newPos = _CubeTransform.Translation;
             newPos += float3.Transform(float3.UnitX * posVelZ, orientation(newYRot, 0));
             newPos += float3.Transform(float3.UnitZ * posVelX, orientation(newYRot, 0));
@@ -219,10 +219,10 @@ namespace FuseeApp
                 newPos.y += 0.1f;
             if (Keyboard.GetKey(KeyCodes.F))
             {
-                height = 0.1f;
+                height -= 0.1f;
                 if (newPos.y <= 0.5f)
                     height = 0;
-                newPos.y -= height;
+                newPos.y -= height * DeltaTime;
             }
             // _CubeTransform.Translation = newPos;
 
@@ -329,7 +329,7 @@ namespace FuseeApp
 
 
 
-            var distance = MovementSpeed * DeltaTime;
+            var distance = MovementSpeed * DeltaTime * 0.5f;
 
 
             // check keys
