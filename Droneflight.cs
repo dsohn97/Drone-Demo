@@ -425,6 +425,7 @@ namespace FuseeApp
 
 
             // Clear the backbuffer
+            // k avoids the Q button being checked more the once per second .buttonup is not working in Javascript
 
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
             
