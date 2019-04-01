@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${env:FuseeRoot}/bin/Debug/Player/Desktop/Fusee.Engine.Player.Desktop.dll",
+            "program": "${env:FuseeRoot}bin/Debug/Player/Desktop/Fusee.Engine.Player.Desktop.dll",
             "args": ["${workspaceRoot}/bin/Debug/netstandard2.0/MyFirstFusee.dll"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

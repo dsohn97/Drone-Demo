@@ -90,6 +90,7 @@ namespace FuseeApp
         private CameraType _cameraType;
         private float newYRot;
         private float d = 5;
+        int k = 0;
 
         private CameraType cameraType
         {
@@ -426,24 +427,21 @@ namespace FuseeApp
             // Clear the backbuffer
 
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
-
-
+            
+            k++;
             // Switch between Drone and Freefly
-
-            if (Keyboard.IsKeyUp(KeyCodes.Q))
+            if (k >= 25 )
+            if (Keyboard.GetKey(KeyCodes.Q))
             {
-
                 _cameraType++;
+                 k = 0;
 
                 if (_cameraType == CameraType.Reset)
                     _cameraType = CameraType.FREE;
 
                 Diagnostics.Log("Der Camera Typ ist " + _cameraType);
             }
-
-            if (Keyboard.IsKeyUp(KeyCodes.E))
-
-                _cameraType--;
+            
 
             MoveRotorPermanently();
             Idle();
