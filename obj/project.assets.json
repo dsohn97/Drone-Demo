@@ -180,23 +180,26 @@
   },
   "packageFolders": {
     "C:\\Users\\MCH\\.nuget\\packages\\": {},
+    "C:\\ProgramData\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MCH\\Documents\\Fusee3D\\Droneflight V2\\MyFirstFusee.csproj",
+      "projectUniqueName": "C:\\Users\\MCH\\Documents\\Fusee3D\\FuseeApps\\Drone-Demo\\MyFirstFusee.csproj",
       "projectName": "MyFirstFusee",
-      "projectPath": "C:\\Users\\MCH\\Documents\\Fusee3D\\Droneflight V2\\MyFirstFusee.csproj",
+      "projectPath": "C:\\Users\\MCH\\Documents\\Fusee3D\\FuseeApps\\Drone-Demo\\MyFirstFusee.csproj",
       "packagesPath": "C:\\Users\\MCH\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MCH\\Documents\\Fusee3D\\Droneflight V2\\obj\\",
+      "outputPath": "C:\\Users\\MCH\\Documents\\Fusee3D\\FuseeApps\\Drone-Demo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\ProgramData\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\MCH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
