@@ -71,7 +71,6 @@ namespace FuseeApp
         private TransformComponent _RLBTransform;
         private TransformComponent _RLFTransform;
         private TransformComponent _CamTransform;
-        private float _cubeMoveZ;
         private float height;
         private float idle = 0;
         private float speedx;
@@ -91,6 +90,7 @@ namespace FuseeApp
         private float newYRot;
         private float d = 5;
         int k = 0;
+        private InputDevice _gameController;
 
         private CameraType cameraType
         {
@@ -113,12 +113,10 @@ namespace FuseeApp
 
             // Rotor Movement
 
-            if (i < 35)
-
+            if (i < 33)
+            {
                 i += 0.05f;
-
-
-
+            }
             _RLBTransform.Rotation.y =
             i * TimeSinceStart;
 
@@ -156,73 +154,32 @@ namespace FuseeApp
         }
         public void tilt()
         {
-            if (Keyboard.WSAxis == 0)
-            {
-                if (_CubeTransform.Rotation.x > 0)
-                    _CubeTransform.Rotation.x -= 0.01f;
-                if (_CubeTransform.Rotation.x < 0)
-                    _CubeTransform.Rotation.x += 0.01f;
-            }
-            if (-Keyboard.WSAxis < 0)
-                if (_CubeTransform.Rotation.x > -0.2)
-                    _CubeTransform.Rotation.x -= 0.005f;
-
-            if (-Keyboard.WSAxis > 0)
-                if (_CubeTransform.Rotation.x < 0.2)
-                    _CubeTransform.Rotation.x += 0.005f;
-
-            // Tilt to the side while moving 
-            if (Keyboard.ADAxis == 0)
-            {
-                if (_CubeTransform.Rotation.z > 0)
-                    _CubeTransform.Rotation.z -= 0.005f;
-                if (_CubeTransform.Rotation.z < 0)
-                    _CubeTransform.Rotation.z += 0.005f;
-            }
-
-
-            // Drone Tilt while Moving
-            if (-Keyboard.ADAxis < 0)
-                if (_CubeTransform.Rotation.z < 0.2)
-                    _CubeTransform.Rotation.z += 0.01f;
-
-            if (-Keyboard.ADAxis > 0)
-                if (_CubeTransform.Rotation.z > -0.2)
-                    _CubeTransform.Rotation.z -= 0.01f;
+            _CubeTransform.Rotation.z = _gameController.GetAxis(0)*0.2f;
+            _CubeTransform.Rotation.x = _gameController.GetAxis(1)*-0.2f;
 
         }
-        public void Movement(float RotType)
+        public void Movement(float Rotation)
         {
-            if (Mouse.LeftButton)
-            {
-                newYRot = _CubeTransform.Rotation.y + (RotType * 0.0005f);
-            }
+            
+            
+                newYRot = _CubeTransform.Rotation.y + (Rotation * 0.05f);
+            
             _CubeTransform.Rotation.y = (newYRot);
-            if (Keyboard.WSAxis == 0)
-                speedx = 0.02f;
-            if (Keyboard.ADAxis == 0)
-                speedz = 0.02f;
-            if (Keyboard.WSAxis != 0)
-                if (speedx <= 0.5f)
-                    speedx += 0.005f;
-            if (Keyboard.ADAxis != 0)
-                if (speedz <= 0.5f)
-                    speedz += 0.005f;
-            float posVelX = -Keyboard.WSAxis * speedx * DeltaTime * 10;
-            float posVelZ = -Keyboard.ADAxis * speedz * DeltaTime * 10;
+            float posVelX = -_gameController.GetAxis(1) * 0.1f;
+            float posVelZ = -_gameController.GetAxis(0) * 0.1f;
             float3 newPos = _CubeTransform.Translation;
             newPos += float3.Transform(float3.UnitX * posVelZ, orientation(newYRot, 0));
             newPos += float3.Transform(float3.UnitZ * posVelX, orientation(newYRot, 0));
 
             // Height
-            if (Keyboard.GetKey(KeyCodes.R))
+            if (_gameController.GetButton(7))
                 newPos.y += 0.1f;
-            if (Keyboard.GetKey(KeyCodes.F))
+            if (_gameController.GetButton(6))
             {
-                height -= 0.1f;
+                height = 0.1f;
                 if (newPos.y <= 0.5f)
                     height = 0;
-                newPos.y -= height * DeltaTime;
+                newPos.y -= height;
             }
             // _CubeTransform.Translation = newPos;
 
@@ -263,7 +220,7 @@ namespace FuseeApp
             var DroneposOld = _CubeTransform.Translation;
             var camPosOld = new float3(_CubeTransform.Translation.x, _CubeTransform.Translation.y + 1, _CubeTransform.Translation.z - d);
             var YRot = _CubeTransform.Rotation.y;
-            Movement(Mouse.XVel);
+            Movement(-_gameController.GetAxis(4)+_gameController.GetAxis(5));
 
             // Calculate camera position
             var dronePosNew = _CubeTransform.Translation;
@@ -292,7 +249,7 @@ namespace FuseeApp
             var droneposold = _CubeTransform.Translation;
             var camPosOld = new float3(_CubeTransform.Translation.x, _CubeTransform.Translation.y + 1, _CubeTransform.Translation.z - d);
 
-            Movement(Mouse.XVel);
+            Movement(-_gameController.GetAxis(4)+_gameController.GetAxis(5));
             // _CubeTransform.Translation = newPos;
 
 
@@ -303,11 +260,11 @@ namespace FuseeApp
 
             var posVec = float3.Normalize(camPosOld - dronePosNew);
             var camposnew = dronePosNew + posVec * d;
-            if (Mouse.RightButton)
-            {
-                Yaw += Mouse.XVel * 0.0005f;
-                Pitch += Mouse.YVel * 0.0005f;
-            }
+            
+            if(_gameController.GetAxis(2) >= 0.2f || _gameController.GetAxis(2) <= -0.2f)   
+                Yaw += _gameController.GetAxis(2) * 0.05f;
+            if(_gameController.GetAxis(3) >= 0.2f || _gameController.GetAxis(3) <= -0.2f)   
+                Pitch += _gameController.GetAxis(3) * 0.05f;
 
             float4x4 viewLookAt = float4x4.LookAt(
                                                             new float3(_CubeTransform.Translation) + 5 * float3.Transform(float3.UnitZ, orientation(Yaw, Pitch)),
@@ -320,11 +277,11 @@ namespace FuseeApp
         public void FreeCamera()
 
         {
-            if (Mouse.LeftButton)
             {
-                Yaw += Mouse.XVel * 0.0005f;
-
-                Pitch += Mouse.YVel * 0.0005f;
+            if(_gameController.GetAxis(2) >= 0.2f || _gameController.GetAxis(2) <= -0.2f)   
+                Yaw += _gameController.GetAxis(2) * 0.05f;
+            if(_gameController.GetAxis(3) >= 0.2f || _gameController.GetAxis(3) <= -0.2f)   
+                Pitch += _gameController.GetAxis(3) * 0.05f;
             }
 
 
@@ -332,28 +289,17 @@ namespace FuseeApp
             var distance = MovementSpeed * DeltaTime * 0.5f;
 
 
-            // check keys
-            if (Keyboard.GetKey(KeyCodes.W))
-            {
-                MoveZLocal(Keyboard.WSAxis * distance, Yaw, Pitch);
-            }
-            if (Keyboard.GetKey(KeyCodes.S))
-            {
-                MoveZLocal(Keyboard.WSAxis * distance, Yaw, Pitch);
-            }
-            if (Keyboard.GetKey(KeyCodes.D))
-            {
-                MoveXLocal(Keyboard.ADAxis * distance, Yaw, Pitch);
-            }
-            if (Keyboard.GetKey(KeyCodes.A))
-            {
-                MoveXLocal(Keyboard.ADAxis * distance, Yaw, Pitch);
-            }
-            if (Keyboard.GetKey(KeyCodes.R))
+            // check keys 
+            if(_gameController.GetAxis(0) >= 0.01f || _gameController.GetAxis(0) <= -0.01f)           
+                MoveZLocal(_gameController.GetAxis(1) * distance, Yaw, Pitch);
+            if(_gameController.GetAxis(1) >= 0.01f || _gameController.GetAxis(1) <= -0.01f)   
+                MoveXLocal(_gameController.GetAxis(0) * distance, Yaw, Pitch);
+            
+            if (_gameController.GetButton(7))
             {
                 position.y += distance;
             }
-            if (Keyboard.GetKey(KeyCodes.F))
+            if (_gameController.GetButton(6))
             {
                 position.y -= distance;
             }
@@ -414,6 +360,7 @@ namespace FuseeApp
             "Rotor front right")?.FirstOrDefault()?.GetTransform();
 
             _CamTransform = _droneScene.Children.FindNodes(node => node.Name == "Cam")?.FirstOrDefault()?.GetTransform();
+           _gameController = Devices.First(dev => dev.Category == DeviceCategory.GameController);
 
         }
 
@@ -428,11 +375,11 @@ namespace FuseeApp
             // k avoids the Q button being checked more the once per second .buttonup is not working in Javascript
 
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
-            
+            Diagnostics.Log(DeltaTime);
             k++;
             // Switch between Drone and Freefly
             if (k >= 25 )
-            if (Keyboard.GetKey(KeyCodes.Q))
+            if (_gameController.GetButton(2))
             {
                 _cameraType++;
                  k = 0;
@@ -463,7 +410,11 @@ namespace FuseeApp
             if (_cameraType == CameraType.DRONE)
 
                 DroneCamera();
-
+                if (_gameController.GetButton(4))
+                    TimeScale = 1;
+                if (_gameController.GetButton(5))
+                    TimeScale = 0;
+            
 
             // Render the scene loaded in Init()
 
