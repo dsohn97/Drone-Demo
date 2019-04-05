@@ -161,12 +161,14 @@ namespace FuseeApp
         public void Movement(float Rotation)
         {
             
-            
+                if (Math.Abs(Rotation)<=.1) Rotation = 0;
                 newYRot = _CubeTransform.Rotation.y + (Rotation * 0.05f);
             
             _CubeTransform.Rotation.y = (newYRot);
             float posVelX = -_gameController.GetAxis(1) * 0.1f;
             float posVelZ = -_gameController.GetAxis(0) * 0.1f;
+            if(Math.Abs(_gameController.GetAxis(0))<=.1) posVelZ = 0;
+            if(Math.Abs(_gameController.GetAxis(1))<=.1) posVelX = 0;
             float3 newPos = _CubeTransform.Translation;
             newPos += float3.Transform(float3.UnitX * posVelZ, orientation(newYRot, 0));
             newPos += float3.Transform(float3.UnitZ * posVelX, orientation(newYRot, 0));
@@ -214,13 +216,15 @@ namespace FuseeApp
         public void DroneCamera()
 
         {
-
+            if (TimeScale != 0)
             tilt();
             // Create Rotation for Steering and calculate new Position
             var DroneposOld = _CubeTransform.Translation;
             var camPosOld = new float3(_CubeTransform.Translation.x, _CubeTransform.Translation.y + 1, _CubeTransform.Translation.z - d);
             var YRot = _CubeTransform.Rotation.y;
-            Movement(-_gameController.GetAxis(4)+_gameController.GetAxis(5));
+            if (TimeScale != 0)
+            Movement(_gameController.GetAxis(2));
+            
 
             // Calculate camera position
             var dronePosNew = _CubeTransform.Translation;
@@ -244,11 +248,12 @@ namespace FuseeApp
             // Mouse and keyboard movement          
 
             // Forward backwards tilt while moving
+            if (TimeScale != 0)
             tilt();
             // Create Rotation for Steering and calculate new Position
             var droneposold = _CubeTransform.Translation;
             var camPosOld = new float3(_CubeTransform.Translation.x, _CubeTransform.Translation.y + 1, _CubeTransform.Translation.z - d);
-
+            if (TimeScale != 0)
             Movement(-_gameController.GetAxis(4)+_gameController.GetAxis(5));
             // _CubeTransform.Translation = newPos;
 
@@ -261,9 +266,9 @@ namespace FuseeApp
             var posVec = float3.Normalize(camPosOld - dronePosNew);
             var camposnew = dronePosNew + posVec * d;
             
-            if(_gameController.GetAxis(2) >= 0.2f || _gameController.GetAxis(2) <= -0.2f)   
+            if(Math.Abs(_gameController.GetAxis(2)) >= 0.2f)   
                 Yaw += _gameController.GetAxis(2) * 0.05f;
-            if(_gameController.GetAxis(3) >= 0.2f || _gameController.GetAxis(3) <= -0.2f)   
+            if(Math.Abs(_gameController.GetAxis(3)) >= 0.2f)   
                 Pitch += _gameController.GetAxis(3) * 0.05f;
 
             float4x4 viewLookAt = float4x4.LookAt(
@@ -390,9 +395,10 @@ namespace FuseeApp
                 Diagnostics.Log("Der Camera Typ ist " + _cameraType);
             }
             
-
+            if (TimeScale != 0){
             MoveRotorPermanently();
             Idle();
+            }
             // Drone Movement
 
             if (_cameraType == CameraType.FOLLOW)
